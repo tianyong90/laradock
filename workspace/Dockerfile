@@ -743,6 +743,18 @@ RUN if [ ${INSTALL_PRESTISSIMO} = true ]; then \
 ;fi
 
 ###########################################################################
+# PHP-CS-Fixer:
+###########################################################################
+USER laradock
+
+ARG INSTALL_PHP_CS_FIXER=false
+
+RUN if [ ${INSTALL_PHP_CS_FIXER} = true ]; then \
+    # Install PHP-CS-Fixer
+    composer global require "friendsofphp/php-cs-fixer" \
+;fi
+
+###########################################################################
 # Linuxbrew:
 ###########################################################################
 
