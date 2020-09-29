@@ -433,6 +433,15 @@ RUN if [ ${INSTALL_WORKSPACE_SSH} = true ]; then \
 ;fi
 
 ###########################################################################
+# SSH KEY For Github
+###########################################################################
+COPY ./.ssh/id_rsa /home/laradock/.ssh/id_rsa
+COPY ./.ssh/id_rsa.pub /home/laradock/.ssh/id_rsa.pub
+RUN chmod 400 /home/laradock/.ssh/id_rsa
+RUN chmod 644 /home/laradock/.ssh/id_rsa.pub
+RUN chown -R laradock:laradock /home/laradock/.ssh
+
+###########################################################################
 # MongoDB:
 ###########################################################################
 
