@@ -1454,8 +1454,10 @@ ARG SHELL_OH_MY_ZSH_AUTOSUGESTIONS=false
 ARG SHELL_OH_MY_ZSH_ALIASES=false
 
 USER laradock
+
+COPY ./install-oh-my-zsh.sh /home/laradock/install-oh-my-zsh.sh
 RUN if [ ${SHELL_OH_MY_ZSH} = true ]; then \
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --keep-zshrc" && \
+    sh -c /home/laradock/install-oh-my-zsh.sh && \
     sed -i -r 's/^plugins=\(.*?\)$/plugins=(laravel5)/' /home/laradock/.zshrc && \
     echo '\n\
 bindkey "^[OB" down-line-or-search\n\
@@ -1529,6 +1531,9 @@ USER root
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm /var/log/lastlog /var/log/faillog
+
+# laravel-websockets
+EXPOSE 60010
 
 # Set default work directory
 WORKDIR /var/www
